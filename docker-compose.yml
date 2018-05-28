@@ -39,6 +39,10 @@ services:
     restart: always
     volumes:
       - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: db123!
+      MYSQL_DATABASE: places
   orte:
     build:
       context: ./orte
