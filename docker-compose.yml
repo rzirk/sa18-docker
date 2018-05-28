@@ -35,18 +35,35 @@ services:
       - db-config:/data/configdb
     container_name: 'mongoperson'
 
-  person:
+  person-service:
+    container_name: personen-service
     build:
       context: ./person
       dockerfile: person.dockerfile
+    image: personen-service
     ports:
       - 3000:3000
     depends_on:
       - mongoperson
     links:
       - mongoperson
+  mensa-service:
+    container_name: mensa-service
+    build:
+      context: ./mensa
+      dockerfile: mensa.dockerfile
+    image: mensa-service
+    ports:
+      - 5000:5000
+  greeter-service:
+    container_name: greeter-service
+    build:
+      context: ./greeter
+      dockerfile: greeter.dockerfile
+    image: greeter-service
+    ports:
+     - 5001:5000
 
-      
 volumes:
   database: {}
   db-data:
