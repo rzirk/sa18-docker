@@ -1,0 +1,40 @@
+version: "2"
+services:
+  bus:
+    build:
+      context: ./bus
+      dockerfile: bus.dockerfile
+    ports:
+      - 8081:8080
+
+  news:
+    build:
+      context: ./news
+      dockerfile: news.dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+    links: 
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes: 
+      - database:/data/db
+    container_name: 'mongo'
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8082:8081
+    depends_on:
+      - mongo
+    links: 
+      - mongo
+      
+volumes:
+  database: {}
