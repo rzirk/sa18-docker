@@ -6,6 +6,7 @@ services:
       dockerfile: bus.dockerfile
     ports:
       - 8081:8080
+    container_name: 'bus'
 
   news:
     build:
@@ -17,6 +18,7 @@ services:
       - mongonews
     links: 
       - mongonews
+    container_name: 'news'
 
   mongonews:
     image: mongo
@@ -47,6 +49,7 @@ services:
       - mongoperson
     links:
       - mongoperson
+    container_name: 'person'
   mensa-service:
     container_name: mensa-service
     build:
@@ -55,6 +58,7 @@ services:
     image: mensa-service
     ports:
       - 5000:5000
+    container_name: 'mensa'
   greeter-service:
     container_name: greeter-service
     build:
@@ -63,6 +67,7 @@ services:
     image: greeter-service
     ports:
      - 5001:5000
+    container_name: 'greeter'
 
 volumes:
   database: {}
