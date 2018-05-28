@@ -14,27 +14,40 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - mongo
+      - mongonews
     links: 
-      - mongo
+      - mongonews
 
-  mongo:
+  mongonews:
     image: mongo
     restart: always
-    ports:
-      - 27017:27017
     volumes: 
       - database:/data/db
-    container_name: 'mongo'
-  mongo-express:
-    image: mongo-express
+    container_name: 'mongonews'
+  mongoperson:
+    image: mongo
     restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - db-data:/data/db
+      - db-config:/data/configdb
+    container_name: 'mongoperson'
+
+  person:
+    build:
+      context: ./person
+      dockerfile: person.dockerfile
     ports:
-      - 8082:8081
+      - 3000:3000
     depends_on:
-      - mongo
-    links: 
-      - mongo
+      - mongoperson
+    links:
+      - mongoperson
+
       
 volumes:
   database: {}
+  db-data:
+  db-config:
