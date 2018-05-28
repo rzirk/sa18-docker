@@ -68,6 +68,13 @@ services:
     ports:
      - 5001:5000
     container_name: 'greeter'
+  orte:
+    build:
+      context: ./orte
+      dockerfile: orte.dockerfile
+    ports:
+      - 3001:3000
+    container_name: 'orte'
 
 volumes:
   database: {}
