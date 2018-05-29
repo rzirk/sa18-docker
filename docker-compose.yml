@@ -16,14 +16,14 @@ services:
       - 8080:8080
     depends_on:
       - mongonews
-    links: 
+    links:
       - mongonews
     container_name: 'news'
 
   mongonews:
     image: mongo
     restart: always
-    volumes: 
+    volumes:
       - database:/data/db
     container_name: 'mongonews'
   mongoperson:
@@ -36,7 +36,23 @@ services:
       - db-data:/data/db
       - db-config:/data/configdb
     container_name: 'mongoperson'
-
+  mysql:
+    image: mysql
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: db123!
+      MYSQL_DATABASE: places
+  orte:
+    build:
+      context: ./orte
+      dockerfile: orte.dockerfile
+    ports:
+      - 4000:8080
+    links:
+      - mysql
   person-service:
     container_name: personen-service
     build:
@@ -82,3 +98,4 @@ volumes:
   database: {}
   db-data:
   db-config:
+  mysql-data:
