@@ -59,8 +59,8 @@ services:
       - 4000:8080
     links:
       - mysql
+    container_name: 'orte'
   person-service:
-    container_name: personen-service
     build:
       context: ./person
       dockerfile: person.dockerfile
@@ -74,7 +74,6 @@ services:
       - mongoperson
     container_name: 'person'
   mensa-service:
-    container_name: mensa-service
     build:
       context: ./mensa
       dockerfile: mensa.dockerfile
@@ -94,7 +93,6 @@ services:
      - 5001:5000
     container_name: 'greeter'
   frontend-service:
-    container_name: frontend-service
     build:
       context: ./frontend
       dockerfile: frontend.dockerfile
