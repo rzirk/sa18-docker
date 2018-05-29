@@ -4,7 +4,7 @@ FROM node:8-alpine
 WORKDIR /usr/src/app
 
 RUN apk update && apk add git
-RUN git clone https://github.com/parth231994/Microservices.git .
+RUN git clone https://github.com/JTBrinkmann/Microservices.git .
 
 RUN npm install
 # If you are building your code for production

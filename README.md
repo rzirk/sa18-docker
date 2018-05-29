@@ -12,5 +12,4 @@ Zugehörige Repositories mit evtl. mehr Details zu Architektur, Docu, etc.:
 * MensaMS: https://github.com/betaros/Short-Mensa-Service
 * NewsMS: https://github.com/oloose/newsletter-ms
 * PersonMS: https://github.com/Tomk3n/sa_personen_service
-* OrteMS: https://github.com/parth231994/Microservices
-
+* OrteMS: https://github.com/JTBrinkmann/Microservices
