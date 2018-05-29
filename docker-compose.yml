@@ -41,7 +41,7 @@ services:
       - db-config:/data/configdb
     container_name: 'mongoperson'
   mysql:
-    image: mysql
+    image: mariadb
     restart: always
     networks: [microservices]
     volumes:
