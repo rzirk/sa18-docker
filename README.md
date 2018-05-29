@@ -13,3 +13,10 @@ Zugehörige Repositories mit evtl. mehr Details zu Architektur, Docu, etc.:
 * NewsMS: https://github.com/oloose/newsletter-ms
 * PersonMS: https://github.com/Tomk3n/sa_personen_service
 * OrteMS: https://github.com/JTBrinkmann/Microservices
+
+#### QuickStart
+Starten aller Services:
+docker-compose up --build --force-recreate --detach
+
+Stopen aller Services:
+docker-compose down
