@@ -16,7 +16,13 @@ Zugehörige Repositories mit evtl. mehr Details zu Architektur, Docu, etc.:
 
 #### QuickStart
 Starten aller Services:
+```
 docker-compose up --build --force-recreate --detach
 
+```
+
 Stopen aller Services:
+```
 docker-compose down
+
+```
