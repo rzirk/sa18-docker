@@ -4,6 +4,7 @@ services:
     build:
       context: ./bus
       dockerfile: bus.dockerfile
+    networks: [microservices]
     ports:
       - 8081:8080
     container_name: 'bus'
@@ -12,6 +13,7 @@ services:
     build:
       context: ./news
       dockerfile: news.dockerfile
+    networks: [microservices]
     ports:
       - 8080:8080
     depends_on:
@@ -22,12 +24,14 @@ services:
 
   mongonews:
     image: mongo
+    networks: [microservices]
     restart: always
     volumes:
       - database:/data/db
     container_name: 'mongonews'
   mongoperson:
     image: mongo
+    networks: [microservices]
     restart: always
     environment:
       - MONGO_DATA_DIR=/data/db
@@ -39,6 +43,7 @@ services:
   mysql:
     image: mysql
     restart: always
+    networks: [microservices]
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
@@ -49,6 +54,7 @@ services:
     build:
       context: ./orte
       dockerfile: orte.dockerfile
+    networks: [microservices]
     ports:
       - 4000:8080
     links:
@@ -59,6 +65,7 @@ services:
       context: ./person
       dockerfile: person.dockerfile
     image: personen-service
+    networks: [microservices]
     ports:
       - 3000:3000
     depends_on:
@@ -72,6 +79,7 @@ services:
       context: ./mensa
       dockerfile: mensa.dockerfile
     image: mensa-service
+    networks: [microservices]
     ports:
       - 5000:5000
     container_name: 'mensa'
@@ -81,6 +89,7 @@ services:
       context: ./greeter
       dockerfile: greeter.dockerfile
     image: greeter-service
+    networks: [microservices]
     ports:
      - 5001:5000
     container_name: 'greeter'
@@ -90,6 +99,7 @@ services:
       context: ./frontend
       dockerfile: frontend.dockerfile
     image: frontend-service
+    networks: [microservices]
     ports:
      - 5002:5000
     container_name: 'frontend'
@@ -99,3 +109,7 @@ volumes:
   db-data:
   db-config:
   mysql-data:
+
+networks:
+  microservices:
+    driver: bridge
