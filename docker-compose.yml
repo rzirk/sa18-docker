@@ -43,13 +43,12 @@ services:
   mysql:
     container_name: ortedb
     image: mariadb
-    restart: always
+    # restart: always
     networks: [microservices]
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: db123!
+      MYSQL_ROOT_PASSWORD: db123!
       MYSQL_DATABASE: places
   orte:
     container_name: orte
