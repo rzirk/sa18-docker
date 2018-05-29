@@ -4,6 +4,7 @@ services:
     build:
       context: ./bus
       dockerfile: bus.dockerfile
+    networks: [microservices]
     ports:
       - 8081:8080
     container_name: 'bus'
@@ -12,22 +13,25 @@ services:
     build:
       context: ./news
       dockerfile: news.dockerfile
+    networks: [microservices]
     ports:
       - 8080:8080
     depends_on:
       - mongonews
-    links: 
+    links:
       - mongonews
     container_name: 'news'
 
   mongonews:
     image: mongo
+    networks: [microservices]
     restart: always
-    volumes: 
+    volumes:
       - database:/data/db
     container_name: 'mongonews'
   mongoperson:
     image: mongo
+    networks: [microservices]
     restart: always
     environment:
       - MONGO_DATA_DIR=/data/db
@@ -36,13 +40,20 @@ services:
       - db-data:/data/db
       - db-config:/data/configdb
     container_name: 'mongoperson'
-
+  orte:
+    build:
+      context: ./orte
+      dockerfile: orte.dockerfile
+    networks: [microservices]
+    ports:
+      - 3001:3000
+    container_name: 'orte'
   person-service:
-    container_name: personen-service
     build:
       context: ./person
       dockerfile: person.dockerfile
     image: personen-service
+    networks: [microservices]
     ports:
       - 3000:3000
     depends_on:
@@ -51,11 +62,11 @@ services:
       - mongoperson
     container_name: 'person'
   mensa-service:
-    container_name: mensa-service
     build:
       context: ./mensa
       dockerfile: mensa.dockerfile
     image: mensa-service
+    networks: [microservices]
     ports:
       - 5000:5000
     container_name: 'mensa'
@@ -65,18 +76,25 @@ services:
       context: ./greeter
       dockerfile: greeter.dockerfile
     image: greeter-service
+    networks: [microservices]
     ports:
      - 5001:5000
     container_name: 'greeter'
-  orte:
+  frontend-service:
     build:
-      context: ./orte
-      dockerfile: orte.dockerfile
+      context: ./frontend
+      dockerfile: frontend.dockerfile
+    image: frontend-service
+    networks: [microservices]
     ports:
-      - 3001:3000
-    container_name: 'orte'
+     - 5002:5000
+    container_name: 'frontend'
 
 volumes:
   database: {}
   db-data:
   db-config:
+
+networks:
+  microservices:
+    driver: bridge
