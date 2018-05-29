@@ -57,7 +57,7 @@ services:
       dockerfile: orte.dockerfile
     networks: [microservices]
     ports:
-      - 4000:8080
+      - 3001:3000
     links:
       - mysql
     container_name: 'orte'
