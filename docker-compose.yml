@@ -41,6 +41,7 @@ services:
       - db-config:/data/configdb
     container_name: 'mongoperson'
   mysql:
+    container_name: ortedb
     image: mariadb
     restart: always
     networks: [microservices]
@@ -51,6 +52,7 @@ services:
       MYSQL_PASSWORD: db123!
       MYSQL_DATABASE: places
   orte:
+    container_name: orte
     build:
       context: ./orte
       dockerfile: orte.dockerfile
