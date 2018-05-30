@@ -13,6 +13,7 @@ Zugehörige Repositories mit evtl. mehr Details zu Architektur, Docu, etc.:
 * NewsMS: https://github.com/oloose/newsletter-ms
 * PersonMS: https://github.com/Tomk3n/sa_personen_service
 * OrteMS: https://github.com/JTBrinkmann/Microservices
+* Frontend: https://github.com/betaros/Short-Frontend-Service
 
 #### QuickStart
 Starten aller Services:
