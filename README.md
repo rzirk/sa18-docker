@@ -21,7 +21,7 @@ docker-compose up --build --force-recreate --detach
 
 ```
 
-Stopen aller Services:
+Stoppen aller Services:
 ```
 docker-compose down
 
