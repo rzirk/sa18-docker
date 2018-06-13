@@ -100,7 +100,7 @@ services:
     image: frontend-service
     networks: [microservices]
     ports:
-     - 5002:5000
+     - 80:5000
     container_name: 'frontend'
 
 volumes:
