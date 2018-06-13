@@ -1,37 +1,28 @@
-version: "2"
+
+version: "3"
 services:
   bus:
-    build:
-      context: ./bus
-      dockerfile: bus.dockerfile
-    networks: [microservices]
+    image: tomk3n/bus-ms
     ports:
       - 8081:8080
-    container_name: 'bus'
-
+    
   news:
-    build:
-      context: ./news
-      dockerfile: news.dockerfile
-    networks: [microservices]
+    image: tomk3n/newsletter-ms
     ports:
       - 8080:8080
     depends_on:
       - mongonews
     links:
       - mongonews
-    container_name: 'news'
 
   mongonews:
     image: mongo
-    networks: [microservices]
     restart: always
     volumes:
       - database:/data/db
-    container_name: 'mongonews'
+     
   mongoperson:
     image: mongo
-    networks: [microservices]
     restart: always
     environment:
       - MONGO_DATA_DIR=/data/db
@@ -39,69 +30,46 @@ services:
     volumes:
       - db-data:/data/db
       - db-config:/data/configdb
-    container_name: 'mongoperson'
+
   mysql:
-    container_name: ortedb
     image: mariadb
     # restart: always
-    networks: [microservices]
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: db123!
       MYSQL_DATABASE: places
+
   orte:
-    container_name: orte
-    build:
-      context: ./orte
-      dockerfile: orte.dockerfile
-    networks: [microservices]
+    image: tomk3n/ortemock
     ports:
       - 3001:3000
     links:
       - mysql
-    container_name: 'orte'
-  person-service:
-    build:
-      context: ./person
-      dockerfile: person.dockerfile
-    image: personen-service
-    networks: [microservices]
+    
+  person:
+    image: tomk3n/sa_personen_service
     ports:
       - 3000:3000
     depends_on:
       - mongoperson
     links:
       - mongoperson
-    container_name: 'person'
-  mensa-service:
-    build:
-      context: ./mensa
-      dockerfile: mensa.dockerfile
-    image: mensa-service
-    networks: [microservices]
+
+  mensa:
+    image: tomk3n/short-mensa-service
     ports:
       - 5000:5000
-    container_name: 'mensa'
-  greeter-service:
-    container_name: greeter-service
-    build:
-      context: ./greeter
-      dockerfile: greeter.dockerfile
-    image: greeter-service
-    networks: [microservices]
+
+  greeter:
+    image: tomk3n/short-greeter-service
     ports:
      - 5001:5000
-    container_name: 'greeter'
+
   frontend-service:
-    build:
-      context: ./frontend
-      dockerfile: frontend.dockerfile
-    image: frontend-service
-    networks: [microservices]
+    image: tomk3n/short-frontend-service
     ports:
-     - 5002:5000
-    container_name: 'frontend'
+     - 80:5000
 
 volumes:
   database: {}
@@ -109,6 +77,3 @@ volumes:
   db-config:
   mysql-data:
 
-networks:
-  microservices:
-    driver: bridge
